@@ -34,5 +34,5 @@ while 1:
     except KeyboardInterrupt:
         pass
     print(
-        f"\nThe student got {right}/{answerCount} correct, with approximately an {round((right/answerCount) * 100, 2)}%.\n"
+        f"\nThe student got {right}/{answerCount} correct, which is approximately {round((right/answerCount) * 100, 2)}%.\n"
     )
