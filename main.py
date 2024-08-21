@@ -21,15 +21,18 @@ fp.clear()
 
 while 1:
     right = 0
-    for i in range(answerCount):
-        answer = fp.replitInput(
-            f"Please input the student's answer to question {i + 1}."
-        )
-        if answer == answerKey[i]:
-            right += 1
-            print("    That is correct")
-        else:
-            print("    That is incorrect")
+    try:
+        for i in range(answerCount):
+            answer = fp.replitInput(
+                f"Please input the student's answer to question {i + 1}. ^C at any time to show results immediately."
+            )
+            if answer == answerKey[i]:
+                right += 1
+                print("    That is correct")
+            else:
+                print("    That is incorrect")
+    except KeyboardInterrupt:
+        pass
     print(
         f"\nThe student got {right}/{answerCount} correct, with approximately an {round((right/answerCount) * 100, 2)}%.\n"
     )
