@@ -51,7 +51,7 @@ fp.clear()
 
 tDigits = 1
 tmp = answerCount
-while tmp > 10:
+while tmp > 9:
     tmp = tmp / 10
     tDigits += 1
 
@@ -74,7 +74,7 @@ while 1:
                     answer = queue.pop(0)
             aDigits = 0
             tmp = i + 1
-            while tmp > 10:
+            while tmp > 9:
                 aDigits += 1
                 tmp = tmp / 10
             digits = tDigits - aDigits
