@@ -14,13 +14,15 @@ answerKey = []
 answer = "0"
 answerCount = 0
 key = False
+validAnswers = []
 
 if len(keys) > 1:
     key = fp.menu(keys, "Please select an assignment to grade")
 fp.clear()
 if key:
-    answerKey = key
-    answerCount = len(key)
+    answerKey = key["key"]
+    answerCount = len(key["key"])
+    validAnswers = key["valid"]
 else:
     while not False:
         answer = fp.replitInput(
@@ -38,11 +40,20 @@ else:
         answerCount += 1
         answerKey.append(answer)
     name = fp.replitInput("Please enter the name of this assignment")
-    keys[name] = answerKey
+    validAnswers = list(
+        fp.replitInput("Please enter the valid answers to this assignment").upper()
+    )
+    keys[name] = {"key": answerKey, "valid": validAnswers}
     with open("assignments.py", "w") as file:
         file.write(f"keys = {keys}")
 
 fp.clear()
+
+tDigits = 1
+tmp = answerCount
+while tmp > 10:
+    tmp = tmp / 10
+    tDigits += 1
 
 while 1:
     right = 0
@@ -61,11 +72,20 @@ while 1:
                 if multi.upper() != "N":
                     queue = list(answer)
                     answer = queue.pop(0)
+            aDigits = 0
+            tmp = i + 1
+            while tmp > 10:
+                aDigits += 1
+                tmp = tmp / 10
+            digits = tDigits - aDigits
+            space = " " * digits
             if answer == answerKey[i]:
                 right += 1
-                print(f"    Answer {i + 1} is correct")
+                print(f"++    Answer {space}{i + 1} is correct")
+            elif answer in validAnswers:
+                print(f"--    Answer {space}{i + 1} is incorrect")
             else:
-                print(f"    Answer {i + 1} is incorrect")
+                print(f"??    Answer {space}{i + 1} is N/A")
     except KeyboardInterrupt:
         pass
     print(
